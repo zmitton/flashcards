@@ -1,5 +1,14 @@
 var fs = require('fs');
-var head = `
+
+var wordLines = fs.readFileSync("words.txt", 'utf8').split("\n")
+
+var cards = []
+// for (var i = 0; i < 20; i++) {
+for (var i = 0; i < wordLines.length; i++) {
+    cards.push(wordLines[i].split("|"))
+}
+
+var flashcardHtml = `
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8" />
@@ -28,75 +37,19 @@ var head = `
           clear: both;
         }
         .row{
-          height: 120px;
+          height: 133px;
           text-align: center
         }
     </style>
 </head>
 <body>
     <div>
-        <p>&nbsp</p>
+
 `
 
-var newPage = `
-        <div class="new-page"></div>
-        <p>&nbsp</p>
-`
-
-var tail = `
-    </div>
-</body>
-`
-
-// var cards = [
-//     ["como","as"],
-//     ["I","I"],
-//     ["su","his"],
-//     ["que","that"],
-//     ["él","he"],
-//     ["como","as"],
-//     ["I","I"],
-//     ["su","his"],
-//     ["que","that"],
-//     ["él","he"],
-//     ["como","as"],
-//     ["I","I"],
-//     ["su","his"],
-//     ["que","that"],
-//     ["él","he"],
-//     ["como","as"],
-//     ["I","I"],
-//     ["su","his"],
-//     ["que","that"],
-//     ["él","he"],
-//     ["él","he"],
-//     ["él","he"],
-//     ["él","he"],
-// ]
-
-// var str = ""
-// for (var i = 0; i < rows.length; i++) {
-//     let row = rows[i].children
-//     str += row[1].innerHTML + "|" + row[2].innerHTML + "\n"
-// }
-
-var wordLines = fs.readFileSync("words.txt", 'utf8').split("\n")
-
-var cards = []
-for (var i = 0; i < wordLines.length && i < 15; i++) {
-    cards.push(wordLines[i].split("|"))
-}
-console.log("cards: \n" + cards)
-
-var flashcardHtml = ""
-
-flashcardHtml += head
-
-// var side = 0
 var pageFront = ""
 var pageBack = ""
 for (var i = 0; i < cards.length; i+=2) {
-    // console.log(i)
     cards[i+1] = cards[i+1] ?  cards[i+1]: [" "," "] // blank div if no more cards
     pageFront += `
         <div class="row">
@@ -119,7 +72,6 @@ for (var i = 0; i < cards.length; i+=2) {
             </div>
         </div>`
 
-console.log(i, cards.length)
     if(i%10==8 || i >= cards.length - 2){
         pageFront += `
         <div class="new-page"></div>
@@ -133,15 +85,12 @@ console.log(i, cards.length)
         pageFront = ""
         pageBack = ""
     }
-
 }
 
-flashcardHtml += tail
-
-// console.log(cards.length)
+flashcardHtml += `
+    </div>
+</body>
+`
 
 fs.writeFileSync('flashcardHtml.html', flashcardHtml)
-
-
-
 
