@@ -38,7 +38,7 @@ var flashcardHtml = `
         }
         .row{
           height: 133px;
-          text-align: center
+          text-align: center;
         }
     </style>
 </head>
@@ -54,21 +54,21 @@ for (var i = 0; i < cards.length; i+=2) {
     pageFront += `
         <div class="row">
             <div class="column">
-                <h3>` + cards[i][0] + `</h3>
+                <h1>` + cards[i][0] + `</h1>
             </div>`
     pageBack += `
         <div class="row">
             <div class="column">
-                <h3>` + cards[i+1][1] + `</h3>
+                <h1>` + cards[i+1][1] + `</h1>
             </div>`
     pageFront += `
             <div class="column">
-                <h3>` + cards[i+1][0] + `</h3>
+                <h1>` + cards[i+1][0] + `</h1>
             </div>
         </div>`
     pageBack += `
             <div class="column">
-                <h3>` + cards[i][1] + `</h3>
+                <h1>` + cards[i][1] + `</h1>
             </div>
         </div>`
 
